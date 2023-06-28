@@ -58,4 +58,11 @@ class AttendanceController extends Controller
 
         return response()->json(['message' => 'Attendance deleted successfully']);
     }
+
+    public function exists($id)
+    {
+        $exists = Attendance::where('id', $id)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
 }

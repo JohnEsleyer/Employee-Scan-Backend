@@ -25,16 +25,19 @@ Route::get('/hello', function(){
 });
 
 // Employee Endpoints
-Route::get('/employees', [EmployeeController::class, 'index']);
-Route::get('/employees/{id}', [EmployeeController::class, 'show']);
-Route::post('/employees', [EmployeeController::class, 'store']);
-Route::put('/employees/{id}', [EmployeeController::class, 'update']);
-Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
+Route::get('/employee', [EmployeeController::class, 'index']);
+Route::get('/employee/{id}', [EmployeeController::class, 'show']);
+Route::post('/employee', [EmployeeController::class, 'store']);
+Route::put('/employee/{id}', [EmployeeController::class, 'update']);
+Route::delete('/employee/{id}', [EmployeeController::class, 'destroy']);
+Route::get('/employee/{id}/exists', [EmployeeController::class, 'exists']);
+
 
 // Attendance Endpoints
 Route::post('/attendance', [AttendanceController::class, 'store']);
 Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
 Route::get('/attendance/{id}', [AttendanceController::class, 'show']);
 Route::get('/attendance', [AttendanceController::class, 'index']);
+Route::get('/attendance/{id}/exists', [AttendanceController::class, 'exists']);
 
 
