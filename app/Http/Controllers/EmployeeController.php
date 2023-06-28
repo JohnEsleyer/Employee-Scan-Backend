@@ -20,7 +20,7 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'company' => 'required',
+            'company_id' => 'required',
         ]);
 
         $employee = Employee::create($validatedData);
@@ -39,7 +39,7 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'company' => 'required',
+            'company_id' => 'required',
         ]);
 
         $employee = Employee::findOrFail($id);
@@ -54,5 +54,11 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function exists($id)
+    {
+        $exists = Employee::where('id', $id)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }
