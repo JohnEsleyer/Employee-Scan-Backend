@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Your Application') }}</title>
     <!-- Include your CSS stylesheets and JavaScript files here -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
+    @vite('resources/css/app.css')
 </head>
 <body>
     <!-- Your navigation bar or header section -->
