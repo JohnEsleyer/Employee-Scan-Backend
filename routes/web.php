@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::post('/login', [AuthController::class, 'loginWeb']);
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
+Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
+
+// Pages
+Route::get('/dashboard', function(){
+    // Only authenticated users can access this route
+    return view('dashboard');
+})->middleware('auth');

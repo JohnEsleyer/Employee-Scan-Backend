@@ -54,4 +54,27 @@ class AuthController extends Controller
             "message" => "Logged out successfully", 200
         ]);
     }
+
+    // Web
+    public function loginWeb(Request $request)
+    {
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)){
+            // Authentication successful
+            return redirect()->intended('/dashboard');
+        }else{
+            // Authentication failed
+            return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
+        }
+    }
+
+    public function logoutWeb()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }
