@@ -14,6 +14,13 @@ class EmployeeController extends Controller
         return response()->json($employees);
     }
 
+    // Executed when dashboard is displayed
+    public function allEmployeeView()
+    {
+        $employees = Employee::all();
+
+        return view('dashboard')->with('employees', $employees);
+    }
 
     public function store(Request $request)
     {
@@ -46,6 +53,15 @@ class EmployeeController extends Controller
         $employee->update($validatedData);
 
         return response()->json($employee);
+    }
+
+
+    public function destroyEmployeeView($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+
+        return redirect()->back()->with('success', 'Employee deleted successfully.');
     }
 
     public function destroy($id)

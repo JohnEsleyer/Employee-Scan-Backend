@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::get('/login', function () {
 Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 
 // Pages
-Route::get('/dashboard', function(){
-    // Only authenticated users can access this route
-    return view('dashboard');
-})->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::delete('/employees/{id}', [EmployeeController::class, 'destroyEmployeeView'])->name('employees.destroy');
+});

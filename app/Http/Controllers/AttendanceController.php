@@ -22,6 +22,13 @@ class AttendanceController extends Controller
         return response()->json(['message' => 'Attendance created successfully']);
     }
 
+    public function allAttendanceView()
+    {
+        $attendance = Attendance::all();
+
+        return view('dashboard')->with('attendance', $attendance);
+    }
+
     public function show($id)
     {
         $attendance = Attendance::find($id);
