@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex h-screen">
+    <div class="flex h-screen bg-gray-200">
         <!-- Navigation Bar -->
-        <div class="w-1/4 bg-white rounded-lg m-4 shadow-lg">
+        <div class="w-1/4 bg-sky-950  text-white shadow-lg">
             <div class="p-4 flex justify-center">
                 <span class="text-xl font-bold">Dashboard</span>
             </div>
@@ -18,7 +18,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="w-3/4 bg-white grid grid-cols-1 w-full">
+        <div class="w-3/4 grid grid-cols-1 w-full max-h-screen overflow-auto">
             <!-- Section 1 -->
             <div class="w-1/3 bg-white rounded-lg m-4 shadow-lg p-6 w-full">
             <h2 class="text-xl font-bold mb-4">Employees</h2>
@@ -50,8 +50,7 @@
                     @endforeach
                     </tbody>
                 </table>
-          
-        </div>
+                </div>
 
 
             <!-- Section 2 -->
