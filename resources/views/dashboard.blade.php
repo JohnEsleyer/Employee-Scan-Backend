@@ -81,7 +81,7 @@
                         <td class="py-2">{{ $attendance->date_entered}}</td>
 
                         <td class="py-2 text-right">
-                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
+                            <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete</button>

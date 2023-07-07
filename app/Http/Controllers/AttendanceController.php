@@ -72,4 +72,12 @@ class AttendanceController extends Controller
 
         return response()->json(['exists' => $exists]);
     }
+
+    public function destroyAttendanceView($id)
+    {
+        $attendance = Attendance::findOrFail($id);
+        $attendance->delete();
+
+        return redirect()->back()->with('success', 'Attendance deleted successfully.');
+    }
 }

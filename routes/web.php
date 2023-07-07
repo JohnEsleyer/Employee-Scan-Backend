@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +33,6 @@ Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 // Pages
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::delete('/employees/{id}', [EmployeeController::class, 'destroyEmployeeView'])->name('employees.destroy');
+    Route::delete('/employee/{id}', [EmployeeController::class, 'destroyEmployeeView'])->name('employees.destroy');
+    Route::delete('/attendance/{id}', [AttendanceController::class, 'destroyAttendanceView'])->name('attendances.destroy');
 });
