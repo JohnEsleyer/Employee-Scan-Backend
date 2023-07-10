@@ -34,5 +34,6 @@ Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::delete('/employee/{id}', [EmployeeController::class, 'destroyEmployeeView'])->name('employees.destroy');
+    Route::post('/employee', [EmployeeController::class, 'storeEmployeeView'])->name('employees.store');
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroyAttendanceView'])->name('attendances.destroy');
 });

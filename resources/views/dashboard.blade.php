@@ -96,9 +96,27 @@
         </div>
 
             <!-- Section 3 -->
-            <div class="w-1/3 bg-white rounded-lg m-4 shadow-lg p-6">
-                <h2 class="text-xl font-bold mb-4">Section 3</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ut est nec ante congue congue.</p>
+            <div class="w-1/3 bg-white rounded-lg m-4 shadow-lg p-6 w-full">
+                <h2 class="text-xl font-bold mb-4">Add Employee</h2>
+                <form action="{{ route('employees.store') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="first_name">First Name:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="first_name" id="first_name">
+                    </div>
+                    <div>
+                        <label for="last_name">Last Name:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="last_name" id="last_name">
+                    </div>
+                    <div class="hidden">
+                        <label for="company_id">Company ID:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" value="111", type="text" name="company_id" id="company_id">
+                    </div>
+                    <!-- Add more input fields if needed -->
+
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                </form>
+
             </div>
         </div>
     </div>

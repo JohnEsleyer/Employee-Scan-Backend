@@ -33,6 +33,19 @@ class EmployeeController extends Controller
         $employee = Employee::create($validatedData);
         return response()->json($employee, 201);
     }
+   
+    public function storeEmployeeView(Request $request)
+    {
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'company_id' => 'required',
+        ]);
+
+        $employee = Employee::create($validatedData);
+        return redirect()->back()->with('success', 'Employee added successfully.');
+    }
+
 
     public function show($id)
     {
