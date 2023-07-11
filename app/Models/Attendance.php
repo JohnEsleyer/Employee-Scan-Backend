@@ -10,8 +10,7 @@ class Attendance extends Model
     protected $table = 'attendance';
     protected $fillable = [
         'employee_id',
-        'company_id',
-        'scanner_id',
+        'office_id',
         'time_in',
         'time_out',
         'date_entered',

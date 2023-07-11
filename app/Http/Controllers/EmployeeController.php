@@ -27,7 +27,8 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'company_id' => 'required',
+            'employee_id' => 'required',
+            'department_id' => 'required',
         ]);
 
         $employee = Employee::create($validatedData);
