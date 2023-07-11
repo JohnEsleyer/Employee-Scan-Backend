@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('company_id');
+            $table->integer('employee_id');
+            $table->integer('office_id');
+            $table->integer('department_id');
             $table->timestamps();
         });
     }
