@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('employee_id');
             $table->integer('office_id');
-            $table->datetime('time_in');
-            $table->datetime('time_out');
+            $table->datetime('time_in_am');
+            $table->datetime('time_out_am');
+            $table->datetime('time_in_pm');
+            $table->datetime('time_out_pm');
             $table->timestamps();
         });
     }

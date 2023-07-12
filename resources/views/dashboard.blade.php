@@ -64,8 +64,10 @@
                         <th class="py-2">ID</th>
                         <th class="py-2">Employee ID</th>
                         <th class="py-2">Office ID</th>
-                        <th class="py-2">Time In</th>
-                        <th class="py-2">Time Out</th>
+                        <th class="py-2">Time In AM</th>
+                        <th class="py-2">Time Out AM</th>
+                        <th class="py-2">Time In PM</th>
+                        <th class="py-2">Time Out PM</th>
                         <th class="py-2 hidden">.</th>
 
                         <!-- Add more table headers if needed -->
@@ -77,8 +79,10 @@
                         <td class="py-2">{{ $attendance->id }}</td>
                         <td class="py-2">{{ $attendance->employee_id }}</td>
                         <td class="py-2">{{ $attendance->office_id}}</td>
-                        <td class="py-2">{{ $attendance->time_in}}</td>
-                        <td class="py-2">{{ $attendance->time_out}}</td>
+                        <td class="py-2">{{ $attendance->time_in_am}}</td>
+                        <td class="py-2">{{ $attendance->time_out_am}}</td>
+                        <td class="py-2">{{ $attendance->time_in_pm}}</td>
+                        <td class="py-2">{{ $attendance->time_out_pm}}</td>
 
                         <td class="py-2 text-right">
                             <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST">

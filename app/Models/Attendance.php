@@ -11,7 +11,9 @@ class Attendance extends Model
     protected $fillable = [
         'employee_id',
         'office_id',
-        'time_in',
-        'time_out',
+        'time_in_am',
+        'time_out_am',
+        'time_in_pm',
+        'time_out_pm',
     ];
 }
