@@ -8,6 +8,14 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+
+    public function allUsers()
+    {
+        $user = User::all();
+
+        return response()->json($user);
+    }
+
     public function register(Request $request)
     {
         $request->validate([

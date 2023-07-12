@@ -29,7 +29,6 @@
                         <th class="py-2">First Name</th>
                         <th class="py-2">Last Name</th>
                         <th class="py-2">Department ID</th>
-                        <th class="py-2">Employee ID</th>
                         <th class="py-2 hidden">.</th>
                         <!-- Add more table headers if needed -->
                     </tr>
@@ -41,7 +40,6 @@
                         <td class="py-2">{{ $employee->first_name }}</td>
                         <td class="py-2">{{ $employee->last_name }}</td>
                         <td class="py-2">{{ $employee->department_id}}</td>
-                        <td class="py-2">{{ $employee->employee_id }}</td>
                         <td class="py-2 text-right">
                             <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
                                 @csrf
@@ -65,10 +63,9 @@
                     <tr>
                         <th class="py-2">ID</th>
                         <th class="py-2">Employee ID</th>
-                        <th class="py-2">Scanner ID</th>
+                        <th class="py-2">Office ID</th>
                         <th class="py-2">Time In</th>
                         <th class="py-2">Time Out</th>
-                        <th class="py-2">MM/DD/YYYY</th>
                         <th class="py-2 hidden">.</th>
 
                         <!-- Add more table headers if needed -->
@@ -79,10 +76,9 @@
                     <tr>
                         <td class="py-2">{{ $attendance->id }}</td>
                         <td class="py-2">{{ $attendance->employee_id }}</td>
-                        <td class="py-2">{{ $attendance->scanner_id}}</td>
+                        <td class="py-2">{{ $attendance->office_id}}</td>
                         <td class="py-2">{{ $attendance->time_in}}</td>
                         <td class="py-2">{{ $attendance->time_out}}</td>
-                        <td class="py-2">{{ $attendance->date_entered}}</td>
 
                         <td class="py-2 text-right">
                             <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST">
@@ -104,10 +100,6 @@
                 <h2 class="text-xl font-bold mb-4">Add Employee</h2>
                 <form action="{{ route('employees.store') }}" method="POST">
                     @csrf
-                    <div>
-                        <label for="first_name">Employee ID</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" name="employee_id" id="employee_id">
-                    </div>
                     <div>
                         <label for="first_name">First Name:</label>
                         <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="first_name" id="first_name">

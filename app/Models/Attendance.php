@@ -13,6 +13,5 @@ class Attendance extends Model
         'office_id',
         'time_in',
         'time_out',
-        'date_entered',
     ];
 }

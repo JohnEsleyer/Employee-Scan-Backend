@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('office_id');
             $table->datetime('time_in');
             $table->datetime('time_out');
-            $table->date('date_entered');
             $table->timestamps();
         });
     }
