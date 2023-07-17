@@ -30,10 +30,7 @@ Route::get('/add_user', function () {
     return view('add_user');
 });
 
-Route::get('/add_user', [UsersController::class, 'index'])->name('users');
-
-Route::get('/users/{id}', 'UserController@show')->name('users.show');
-
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'loginWeb']);
 
 Route::get('/login', function () {
@@ -49,4 +46,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/employee/{id}', [EmployeeController::class, 'destroyEmployeeView'])->name('employees.destroy');
     Route::post('/employee', [EmployeeController::class, 'storeEmployeeView'])->name('employees.store');
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroyAttendanceView'])->name('attendances.destroy');
+    Route::get('/add_user', [UsersController::class, 'index'])->name('users');
+    Route::get('/users/{id}', 'UserController@show')->name('users.show');
 });

@@ -16,9 +16,8 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-
-Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -32,6 +31,7 @@ Route::get('/hello', function(){
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    
     // Employee Endpoints
     Route::get('/employee', [EmployeeController::class, 'index']);
     Route::get('/employee/{id}', [EmployeeController::class, 'show']);

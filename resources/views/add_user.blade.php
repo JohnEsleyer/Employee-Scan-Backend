@@ -78,39 +78,71 @@
                 </table>
             </div>
         </div>
-
-
         <!--Add user-->
-        
-        <div class= "container bg-white rounded-lg m-4 shadow-lg p-6 w-1/2">
+        <div class="container bg-white rounded-lg m-4 shadow-lg p-6 w-1/2">
             <h1 class="font-bold">Add User</h1>
             <hr class="my-3 h-0.5 border-t-0 bg-gray-400 opacity-100 dark:opacity-100"/>
-            <form action="#">
+            <form id="add-user-form">
+                @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                         Username
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="username" type="text" placeholder="Username">
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                        Name
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">
+                        First Name
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="first_name" name="first_name" type="text" placeholder="First Name">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="last_name">
+                        Last Name
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" name="last_name" type="text" placeholder="Last Name">
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                         Password
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="Password">
                 </div>
                 <div class="mb-4">
-                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    <button id="create-user-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Create
                     </button>
                 </div>
             </form>
+            <div id="error-message" class="text-red-500"></div> <!-- Element to display the error message -->
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#create-user-btn').click(function () {
+                    var formData = $('#add-user-form').serialize();
+
+                    $.ajax({
+                        url: "{{ route('register') }}",
+                        type: "POST",
+                        data: formData,
+                        success: function (response) {
+                            // Handle the success response
+                            console.log(response);
+                            location.reload(); // Refresh the page
+                        },
+                        error: function (xhr) {
+                            // Handle the error response
+                            console.error(xhr);
+                            var errorMessage = xhr.responseJSON.message; // Extract the error message from the response
+                            $('#error-message').text(errorMessage); // Display the error message in the element
+                        }
+                    });
+                });
+            });
+        </script>
+
 
 </div> 
 </div>
