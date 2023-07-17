@@ -23,9 +23,9 @@
     });
     </script>
     <!-- Main Content --> 
-    <div class="w-full grid grid-cols-2 max-h-screen overflow-auto">
+    <div class="w-full grid grid-cols-2 max-h-screen gap-4 overflow-auto">
     
-    <div class="flex-1 ml-72">
+        <!-- Users -->
         <div class= "container bg-white rounded-lg m-4 shadow-lg p-6 w-full">
             <div class="flex items-center justify-between">
                 <h1 class="font-bold">Users</h1>
@@ -78,8 +78,10 @@
                 </table>
             </div>
         </div>
-    </div>
-    <div class="flex-1 ml-72">
+
+
+        <!--Add user-->
+        
         <div class= "container bg-white rounded-lg m-4 shadow-lg p-6 w-1/2">
             <h1 class="font-bold">Add User</h1>
             <hr class="my-3 h-0.5 border-t-0 bg-gray-400 opacity-100 dark:opacity-100"/>
@@ -109,7 +111,7 @@
                 </div>
             </form>
         </div>
-    </div>
+
 </div> 
 </div>
 @endsection
