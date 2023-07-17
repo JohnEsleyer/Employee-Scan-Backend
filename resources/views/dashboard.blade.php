@@ -125,7 +125,7 @@
                     </div>
                     <!-- Add more input fields if needed -->
 
-                    <button class="bg-red-500 hover:bg-red-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                    <button class="bg-green-500 hover:bg-red-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
                 </form>
 
             </div>
