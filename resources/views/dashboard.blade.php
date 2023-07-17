@@ -1,26 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex h-screen bg-gray-200">
-        <!-- Navigation Bar -->
-        <div class="w-1/4 bg-sky-950  text-white shadow-lg">
-            <div class="p-4 flex justify-center">
-                <span class="text-xl font-bold">Dashboard</span>
-            </div>
-            <div class="flex justify-center p-4">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Logout
-                    </button>
-                </form>
-            </div>
+<div class="flex h-screen bg-gray-200">
+
+     <!-- Navigation Bar -->
+     <div id="navbar" class="w-1/4 dark:bg-gray-800 text-white shadow-lg">
+        <!-- Your content here -->
+        @include('layouts.navbar')
         </div>
+        <script>
+    window.addEventListener('resize', function() {
+        var element = document.getElementById('navbar');
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+        if (screenWidth < 640) { // Adjust the breakpoint as needed
+        element.classList.add('hidden');
+        } else {
+        element.classList.remove('hidden');
+        }
+    });
+    </script>
 
         <!-- Main Content -->
-        <div class="w-3/4 grid grid-cols-1 w-full max-h-screen overflow-auto">
+        <div class="w-full grid grid-cols-1 max-h-screen overflow-auto">
             <!-- Section 1 -->
-            <div class="w-1/3 bg-white rounded-lg m-4 shadow-lg p-6 w-full">
+            <div class="w-full bg-white rounded-lg m-4 shadow-lg p-6">
             <h2 class="text-xl font-bold mb-4">Employees</h2>
             <table class="w-full text-left">
                 <thead class="text-xs uppercase bg-gray-50">
@@ -44,7 +48,10 @@
                             <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete</button>
+                                <button class="bg-red-500 hover:bg-red-400 text-gray-800 font-bold py-2 px-0 rounded inline-flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="48"><path d="M261-120q-24.75 0-42.375-17.625T201-180v-570h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438v-570ZM367-266h60v-399h-60v399Zm166 0h60v-399h-60v399ZM261-750v570-570Z"/>
+                                    </svg>
+                              </button>
                             </form> 
                         </td>
                         <!-- Add more table cells for other employee data -->
@@ -56,7 +63,7 @@
 
 
             <!-- Section 2 -->
-             <div class="w-1/3 bg-white rounded-lg m-4 shadow-lg p-6 w-full">
+             <div class="w-full bg-white rounded-lg m-4 shadow-lg p-6">
             <h2 class="text-xl font-bold mb-4">Attendance</h2>
             <table class="w-full text-left">
                 <thead class="text-xs uppercase bg-gray-50">
@@ -88,7 +95,7 @@
                             <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete</button>
+                                <button class="bg-red-500 hover:bg-red-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete</button>
                             </form> 
                         </td>
                         <!-- Add more table cells for other employee data -->
@@ -100,7 +107,7 @@
         </div>
 
             <!-- Section 3 -->
-            <div class="w-1/3 bg-white rounded-lg m-4 shadow-lg p-6 w-full">
+            <div class="w-full bg-white rounded-lg m-4 shadow-lg p-6">
                 <h2 class="text-xl font-bold mb-4">Add Employee</h2>
                 <form action="{{ route('employees.store') }}" method="POST">
                     @csrf
@@ -118,10 +125,11 @@
                     </div>
                     <!-- Add more input fields if needed -->
 
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                    <button class="bg-red-500 hover:bg-red-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
                 </form>
 
             </div>
         </div>
     </div>
+</div>
 @endsection
