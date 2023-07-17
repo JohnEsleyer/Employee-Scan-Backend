@@ -61,6 +61,30 @@
                 </table>
                 </div>
 
+            
+                   <!-- Section 3 -->
+                   <div class="w-full bg-white rounded-lg m-4 shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Add Employee</h2>
+                <form action="{{ route('employees.store') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="first_name">First Name:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="first_name" id="first_name">
+                    </div>
+                    <div>
+                        <label for="last_name">Last Name:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="last_name" id="last_name">
+                    </div>
+                    <div>
+                        <label for="company_id">Department ID</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500", type="number" name="department_id" id="department_id">
+                    </div>
+                    <!-- Add more input fields if needed -->
+
+                    <button class="bg-green-500 hover:bg-red-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                </form>
+
+            </div>
 
             <!-- Section 2 -->
              <div class="w-full bg-white rounded-lg m-4 shadow-lg p-6">
@@ -106,29 +130,7 @@
           
         </div>
 
-            <!-- Section 3 -->
-            <div class="w-full bg-white rounded-lg m-4 shadow-lg p-6">
-                <h2 class="text-xl font-bold mb-4">Add Employee</h2>
-                <form action="{{ route('employees.store') }}" method="POST">
-                    @csrf
-                    <div>
-                        <label for="first_name">First Name:</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="first_name" id="first_name">
-                    </div>
-                    <div>
-                        <label for="last_name">Last Name:</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="last_name" id="last_name">
-                    </div>
-                    <div>
-                        <label for="company_id">Department ID</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-white-600 dark:border-white-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500", type="number" name="department_id" id="department_id">
-                    </div>
-                    <!-- Add more input fields if needed -->
-
-                    <button class="bg-green-500 hover:bg-red-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
-                </form>
-
-            </div>
+     
         </div>
     </div>
 </div>
