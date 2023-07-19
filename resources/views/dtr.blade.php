@@ -41,34 +41,92 @@
         <div class="container bg-white rounded-lg m-4 shadow-lg p-6 w-full ml-10">
           <div class="flex items-center justify-between">
             <h1 class="font-bold">Employees</h1>
-                        
-            <form>   
+
+            <!-- Search Employee -->
+            <form id="searchForm">   
               <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
               <div class="relative">
                   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   </div>
-                  <input type="search" id="default-search" class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search employee" required>
+                  @csrf
+                  <input type="search" id="keyword" class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search by first name or last name" required>
                   <button type="submit" class="text-white absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2">
-
+                  
                     <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
-
                   </button>
               </div>
             </form>
+            <div id="loading" style="display: none;">Please wait...</div>
+            <script src="{{ asset('js/app.js') }}"></script>
 
 
           </div>
           <hr class="my-3 h-0.5 border-t-0 bg-gray-400 opacity-100 dark:opacity-100"/>
-          <div class="overflow-y-auto h-200">
-            @for ($i = 0; $i < 20; $i++)
-              <a href="" class="block w-full p-1 mb-2 pl-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-                <h5 class="text-lg font-bold tracking-tight text-gray-900">Jan Mar Espiritu</h5>
-                <p class="font-light text-sm text-gray-500">IT Department</p>
-              </a>
-            @endfor
+          <div id="results" class="overflow-y-auto h-200">
+            
           </div>
+
+
+          <script>
+            document.getElementById('searchForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                var keyword = document.getElementById('keyword').value;
+
+                var resultsDiv = document.getElementById('results');
+                var loadingDiv = document.createElement('div');
+                loadingDiv.className = 'overflow-y-auto h-200';
+                loadingDiv.innerHTML = '<div class="block w-full p-1 mb-2 pl-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">' +
+                    '<h5 class="text-lg font-bold tracking-tight text-gray-900">Please wait...</h5>' +
+                    '</div>';
+
+                resultsDiv.innerHTML = '';
+                resultsDiv.appendChild(loadingDiv);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{{ route('dtr.search') }}', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        resultsDiv.innerHTML = ''; // Clear previous loading message
+
+                        if (xhr.status === 200) {
+                            var employees = JSON.parse(xhr.responseText);
+
+                            if (employees.length === 0) {
+                                resultsDiv.innerHTML = '<p>No employees found.</p>';
+                            } else {
+                                employees.forEach(function(employee) {
+                                    var resultItem = document.createElement('a');
+                                    resultItem.className = 'block w-full p-1 mb-2 pl-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100';
+                                    resultItem.href = '';
+
+                                    var h5 = document.createElement('h5');
+                                    h5.className = 'text-lg font-bold tracking-tight text-gray-900';
+                                    h5.textContent = employee.first_name + ' ' + employee.last_name;
+
+                                    var p = document.createElement('p');
+                                    p.className = 'font-light text-sm text-gray-500';
+                                    p.textContent = employee.department;
+
+                                    resultItem.appendChild(h5);
+                                    resultItem.appendChild(p);
+                                    resultsDiv.appendChild(resultItem);
+                                });
+                            }
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+
+                xhr.send(JSON.stringify({ keyword: keyword }));
+            });
+        </script>
         </div>
     </div>
     

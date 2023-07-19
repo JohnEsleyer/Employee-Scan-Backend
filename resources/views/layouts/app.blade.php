@@ -6,6 +6,8 @@
     <title>{{ config('app.name', 'Your Application') }}</title>
     <!-- Include your CSS stylesheets and JavaScript files here -->
     <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @vite('resources/css/app.css')
 </head>
 <body>

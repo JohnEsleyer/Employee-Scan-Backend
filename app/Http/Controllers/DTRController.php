@@ -13,4 +13,21 @@ class DTRController extends Controller {
 
         return view('dtr', compact('employees'));
     }
+
+    // Search Employee
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $employees = Employee::where('first_name', 'like', '%' . $keyword . '%')
+            ->orWhere('last_name', 'like', '%' . $keyword . '%')
+            ->get();
+
+        return response()->json($employees);
+    }
+    
+    public function test()
+    {
+        return view('test');
+    }
 }
