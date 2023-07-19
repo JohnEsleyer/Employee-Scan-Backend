@@ -46,9 +46,8 @@
                     <option value="{{ $month }}" {{ $month === (date('n') - 1) ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $month + 1, 1)) }}</option>
                 @endfor
             </select>
-
-
           </div>
+          
         </div>
         <div class="container bg-white rounded-lg m-4 shadow-lg p-6 w-full ml-10">
           <div class="flex items-center justify-between">
@@ -121,7 +120,10 @@
                                 employees.forEach(function(employee) {
                                     var resultItem = document.createElement('a');
                                     resultItem.className = 'block w-full p-1 mb-2 pl-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100';
-                                    resultItem.href = '';
+                                    resultItem.href = '#';
+                                    resultItem.addEventListener('click', function() {
+                                        console.log('Clicked employee:', employee.first_name + ' ' + employee.last_name);
+                                    });
 
                                     var h5 = document.createElement('h5');
                                     h5.className = 'text-lg font-bold tracking-tight text-gray-900';
@@ -150,6 +152,7 @@
                 xhr.send(requestData);
             });
         </script>
+
 
         </div>
     </div>
