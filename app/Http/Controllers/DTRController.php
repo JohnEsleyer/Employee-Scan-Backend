@@ -27,6 +27,20 @@ class DTRController extends Controller {
 
         return response()->json($employees);
     }
+
+    public function searchByDepartment(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $departmentId = $request->input('department_id');
+
+        $employees = Employee::where(function ($query) use ($keyword) {
+            $query->where('first_name', 'like', '%' . $keyword . '%')
+                ->orWhere('last_name', 'like', '%' . $keyword . '%');
+        })->where('department_id', $departmentId)
+        ->get();
+
+        return response()->json($employees);
+    }
     
 
 }

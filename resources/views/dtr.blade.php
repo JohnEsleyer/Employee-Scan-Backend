@@ -11,7 +11,7 @@
             {{-- Department DTR --}}
             <!-- Select Department -->
             <label for="underline_select" class="sr-only">Underline select</label>
-            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none peer">
+            <select id="department_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none peer">
                 <option selected class="text-gray-500">Department</option>
                 {{-- <option value="a">a1</option> --}}
                 @foreach ($departments as $department)
@@ -82,6 +82,12 @@
 
 
           <script>
+            let department_id;
+            document.getElementById('department_select').addEventListener('change', function() {
+                department_id = this.value;
+                console.log('Selected value:', department_id);
+            });
+
             document.getElementById('searchForm').addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent form submission
 
@@ -136,9 +142,15 @@
                     }
                 };
 
-                xhr.send(JSON.stringify({ keyword: keyword }));
+                var requestData = JSON.stringify({
+                    keyword: keyword,
+                    department_id: department_id
+                });
+
+                xhr.send(requestData);
             });
         </script>
+
         </div>
     </div>
     

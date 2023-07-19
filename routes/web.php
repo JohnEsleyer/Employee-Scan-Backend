@@ -41,7 +41,7 @@ Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 
 // Pages
 Route::middleware(['auth'])->group(function () {
-    Route::post('/search-employee', [DTRController::class, 'search'])->name('dtr.search');
+    Route::post('/search-employee', [DTRController::class, 'searchByDepartment'])->name('dtr.search');
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/dtr', [DTRController::class, 'index']);
     Route::delete('/employee/{id}', [EmployeeController::class, 'destroyEmployeeView'])->name('employees.destroy');

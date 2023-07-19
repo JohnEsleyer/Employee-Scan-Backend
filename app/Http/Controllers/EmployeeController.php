@@ -47,6 +47,7 @@ class EmployeeController extends Controller
     }
 
 
+
     public function show($id)
     {
         $employee = Employee::findOrFail($id);
