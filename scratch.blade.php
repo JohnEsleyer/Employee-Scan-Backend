@@ -22,10 +22,9 @@
 
   <!-- Main Content -->
   <div class="bg-gray-200 w-full">
-    <div class="flex flex-col justify-center items-center h-screen w-full">
+    <div class="flex flex-col justify-center items-center h-screen">
       <div class="flex flex-row w-3/4 pr-4">
-        <!-- Selector --> 
-        <div class="container bg-white rounded-lg m-4 shadow-lg p-6 w-1/4">
+        <div class="container bg-white rounded-lg m-4 shadow-lg p-6">
           <h1 class="font-bold">Employee's DTR</h1>
           <hr class="my-3 h-0.5 border-t-0 bg-gray-400 opacity-100 dark:opacity-100"/>            
           
@@ -66,23 +65,22 @@
           </select>
         </div>
         <!-- Search Employee -->
-        <div class="container bg-white rounded-lg m-4 shadow-lg flex flex-col w-full overflow-y-auto h-80">
-        <div class="flex flex-row gap-15 p-5">
-            <h1 class="font-bold mb-4 flex-grow">Employees</h1>
-            <form id="searchForm" class="flex">
-                <label for="keyword" class="sr-only">Search</label>
-                <div class="relative flex">
-                <input type="search" id="keyword" class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search by first name or last name" required>
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ml-2">
-                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </button>
-                </div>
-            </form>
+        <div class="container bg-white rounded-lg m-4 shadow-lg flex flex-col w-full">
+            <div class="flex flex-row">  
+        <h1 class="font-bold mb-4">Employees</h1>
+          <form id="searchForm" class="flex">   
+            <label for="keyword" class="sr-only">Search</label>
+            <div class="relative flex">
+              <input type="search" id="keyword" class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search by first name or last name" required>
+              <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ml-2">
+                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </button>
             </div>
-
-        <div id="results"></div>
+          </form>
+          <div id="results" class="overflow-y-auto"></div>
+        </div>
         </div>
       </div>
       <div class="container bg-white rounded-lg m-4 shadow-lg w-3/4 p-6">
