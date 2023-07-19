@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Employee;
+use App\Models\Department;
 
 class DTRController extends Controller {
     public function index()
     {
         $employees = Employee::all();
+        $departments = Department::all();
 
-        return view('dtr', compact('employees'));
+        return view('dtr', compact('employees', 'departments'));
     }
 
     // Search Employee
@@ -26,8 +28,5 @@ class DTRController extends Controller {
         return response()->json($employees);
     }
     
-    public function test()
-    {
-        return view('test');
-    }
+
 }

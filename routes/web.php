@@ -41,7 +41,6 @@ Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 
 // Pages
 Route::middleware(['auth'])->group(function () {
-    Route::get('/test', [DTRController::class, 'test']);
     Route::post('/search-employee', [DTRController::class, 'search'])->name('dtr.search');
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/dtr', [DTRController::class, 'index']);

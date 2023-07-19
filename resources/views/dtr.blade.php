@@ -13,9 +13,9 @@
             <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none peer">
                 <option selected class="text-gray-500">Department</option>
                 {{-- <option value="a">a1</option> --}}
-                @for ($i = 0; $i < 10; $i++)
-                <option value="$i">a {{ $i }}</option>
-                @endfor
+                @foreach ($departments as $department)
+                <option value="{{ $department->id }}">{{ $department->department_name }} </option>
+                @endforeach
             </select>
             <br>
             {{-- Department DTR --}}
