@@ -9,6 +9,7 @@
             <hr class="my-3 h-0.5 border-t-0 bg-gray-400 opacity-100 dark:opacity-100"/>            
             
             {{-- Department DTR --}}
+            <!-- Select Department -->
             <label for="underline_select" class="sr-only">Underline select</label>
             <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none peer">
                 <option selected class="text-gray-500">Department</option>
@@ -18,24 +19,35 @@
                 @endforeach
             </select>
             <br>
+            <!-- Select Year -->
             {{-- Department DTR --}}
             <label for="underline_select" class="sr-only">Underline select</label>
             <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none peer">
-                <option selected class="text-gray-500">Year</option>
+                {{-- <option selected class="text-gray-500">Year</option> --}}
                 {{-- <option value="a">a1</option> --}}
-                @for ($i = 0; $i < 10; $i++)
-                <option value="$i">a {{ $i }}</option>
+                @for ($i = 0; $i < 6; $i++)
+                    @php
+                        $year = date('Y') - $i;
+                    @endphp
+                    <option value="{{ $year }}" {{ $year === date('Y') ? 'selected' : '' }}>{{ $year }}</option>
                 @endfor
             </select>
+
+
             <br>
+
+            <!-- Select Month -->
             {{-- Department DTR --}}
             <label for="underline_select" class="sr-only">Underline select</label>
             <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none peer">
-                <option selected class="text-gray-500">Month</option>
-                @for ($i = 0; $i < 10; $i++)
-                  <option value="$i">a {{ $i }}</option>
+                {{-- <option selected class="text-gray-500">Month</option> --}}
+                {{-- <option value="a">a1</option> --}}
+                @for ($month = 0; $month < 12; $month++)
+                    <option value="{{ $month }}" {{ $month === (date('n') - 1) ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $month + 1, 1)) }}</option>
                 @endfor
             </select>
+
+
           </div>
         </div>
         <div class="container bg-white rounded-lg m-4 shadow-lg p-6 w-full ml-10">
