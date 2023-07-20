@@ -32,7 +32,7 @@
           {{-- Department DTR --}}
           <label for="department_select" class="sr-only">Select Department</label>
           <select id="department_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
-            <option selected disabled class="text-gray-500">Department</option>
+            <option value="" disabled selected class="text-gray-500">Select Department</option>
             @foreach ($departments as $department)
               <option value="{{ $department->id }}">{{ $department->department_name }}</option>
             @endforeach
@@ -85,7 +85,7 @@
         <div id="results"></div>
         </div>
       </div>
-      <div class="container bg-white rounded-lg m-6 shadow-lg w-3/4 p-6">
+      <div id="dtr" class="container bg-white rounded-lg m-6 shadow-lg w-3/4 p-6">
         <h1>Hello World</h1>
       </div>
     </div>
@@ -174,49 +174,102 @@
                                     // Employee is clicked
                                     resultItem.addEventListener('click', function() {
                                       const selectedYear = document.getElementById('year_select').value;
-                                      const selectedMonth = document.getElementById('month_select').value;   
+                                      const selectedMonth = document.getElementById('month_select').value;
 
-                                        console.log('Clicked employee:', employee.first_name + ' ' + employee.last_name);
-                                        const employee_id = employee.id;
+                                      console.log('Clicked employee:', employee.first_name + ' ' + employee.last_name);
+                                      const employee_id = employee.id;
 
-                                        // Prepare the request payload
-                                        const requestData = {
-                                          employee_id: employee_id,
-                                          selectedYear: selectedYear,
-                                          selectedMonth: selectedMonth,
-                                        };
+                                      // Prepare the request payload
+                                      const requestData = {
+                                        employee_id: employee_id,
+                                        selectedYear: selectedYear,
+                                        selectedMonth: selectedMonth,
+                                      };
 
+                                      // Get the CSRF token value from the meta tag in your HTML layout
+                                      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+                                      // Include the CSRF token in the request headers
+                                      const headers = {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': csrfToken,
+                                      };
+                                      // Get the dtrDiv element
+                                      const dtrDiv = document.getElementById('dtr');
 
-                                        // Get the CSRF token value from the meta tag in your HTML layout
-                                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                                      // Display the loading indicator before making the AJAX request
+                                      dtrDiv.innerHTML = '<p>Loading...</p>';
+                                      
+                                      // Make an AJAX request to the controller method
+                                      fetch('/getAttendances', {
+                                        method: 'POST',
+                                        headers: headers,
+                                        body: JSON.stringify(requestData),
+                                      })
+                                      .then(response => {
+                                        if (!response.ok) {
+                                          throw new Error('Request failed with status: ' + response.status);
+                                        }
+                                        return response.json();
+                                      })
+                                      .then(data => {
+                                        console.log('Attendance data:', data);
 
-                                        // Include the CSRF token in the request headers
-                                        const headers = {
-                                          'Content-Type': 'application/json',
-                                          'X-CSRF-TOKEN': csrfToken,
-                                        };
+                                        // Check if the response contains at least one object
+                                        if (data.length > 0) {
+                                          // Create an empty string to store the table rows
+                                          let tableRows = '';
 
+                                          // Loop through each object in the data array
+                                          
+                                          const name = `<h1 class="text-xl font-bold p-4">${employee.last_name}, ${employee.first_name}</h1>`;
+                                          data.forEach(dtrData => {
+                                            // Extract the relevant fields from the current data object
+                                            const timeInAM = dtrData.time_in_am;
+                                            const timeOutAM = dtrData.time_out_am;
+                                            const timeInPM = dtrData.time_in_pm;
+                                            const timeOutPM = dtrData.time_out_pm;
 
-                                        // Make an AJAX request to the controller method
-                                        fetch('/getAttendances', {
-                                          method: 'POST',
-                                          headers: headers,
-                                          body: JSON.stringify(requestData),
-                                        })
-                                        .then(response => {
-                                          if (!response.ok) {
-                                            throw new Error('Request failed with status: ' + response.status);
-                                          }
-                                          return response.json();
-                                        })
-                                        .then(data => {
-                                          console.log('Attendance data:', data);
-                                          // Process the data as needed
-                                        })
-                                        .catch(error => {
-                                          console.error('Error:', error);
-                                        });
+                                            // Add a table row with the extracted DTR data to the tableRows string
+                                            tableRows += `
+                                              <tr>
+                                                <td class="border border-gray-300 px-4 py-2">${timeInAM}</td>
+                                                <td class="border border-gray-300 px-4 py-2">${timeOutAM}</td>
+                                                <td class="border border-gray-300 px-4 py-2">${timeInPM}</td>
+                                                <td class="border border-gray-300 px-4 py-2">${timeOutPM}</td>
+                                              </tr>
+                                            `;
+                                          });
+
+                                          // Update the view with the complete table containing all the DTR data
+                                          
+                                          dtrDiv.innerHTML = `
+                                            <div class="max-w-md mx-auto mt-4">
+                                              <table class="w-full border-collapse border border-gray-300">
+                                                <thead>
+                                                  <tr>
+                                                    <th class="border border-gray-300 px-4 py-2">Time In (AM)</th>
+                                                    <th class="border border-gray-300 px-4 py-2">Time Out (AM)</th>
+                                                    <th class="border border-gray-300 px-4 py-2">Time In (PM)</th>
+                                                    <th class="border border-gray-300 px-4 py-2">Time Out (PM)</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  ${name}
+                                                  ${tableRows} <!-- Insert the generated table rows here -->
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                          `;
+                                        } else {
+                                          // If no data is present in the response, display an error message or handle as needed.
+                                          const dtrDiv = document.getElementById('dtr');
+                                          dtrDiv.innerHTML = '<p>No attendance data found.</p>';
+                                        }
+                                      })
+                                      .catch(error => {
+                                        console.error('Error:', error);
+                                      });
                                     });
 
                                     var h5 = document.createElement('h5');
