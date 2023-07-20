@@ -60,8 +60,8 @@
           <select id="month_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
             {{-- <option selected class="text-gray-500">Month</option> --}}
             {{-- <option value="a">a1</option> --}}
-            @for ($month = 0; $month < 12; $month++)
-              <option value="{{ $month }}" {{ $month === (date('n') - 1) ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $month + 1, 1)) }}</option>
+            @for ($month = 1; $month <= 12; $month++)
+              <option value="{{ $month }}" {{ $month === date('n') ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $month, 1)) }}</option>
             @endfor
           </select>
         </div>
@@ -85,7 +85,7 @@
         <div id="results"></div>
         </div>
       </div>
-      <div class="container bg-white rounded-lg m-4 shadow-lg w-3/4 p-6">
+      <div class="container bg-white rounded-lg m-6 shadow-lg w-3/4 p-6">
         <h1>Hello World</h1>
       </div>
     </div>
@@ -93,10 +93,46 @@
 </div>
 
           <script>
+            // Get the selected year and month from the HTML select elements
+            const selectedYear = document.getElementById('year_select').value;
+            const selectedMonth = document.getElementById('month_select').value;
+
+            const monthSelect = document.getElementById('month_select');
+            // Add an event listener for the 'change' event
+            monthSelect.addEventListener('change', function () {
+              // Get the selected value (the selected month number)
+              const selectedMonth = monthSelect.value;
+
+              // Optionally, you can also get the selected month name from the option text
+              const selectedMonthName = monthSelect.options[monthSelect.selectedIndex].text;
+
+              // Log the selected month number and name to the console
+              console.log('Selected Month Number:', selectedMonth);
+              console.log('Selected Month Name:', selectedMonthName);
+            });
+
+            // Get the <select> element for the year
+            const yearSelect = document.getElementById('year_select');
+
+            // Add an event listener for the 'change' event
+            yearSelect.addEventListener('change', function () {
+              // Get the selected value (the selected year)
+              const selectedYear = yearSelect.value;
+
+              // Log the selected year to the console
+              console.log('Selected Year:', selectedYear);
+            });
+
+            
+            // Create a JavaScript Date object with the selected year and month
+            const selectedDate = new Date(selectedYear, selectedMonth, 1);
+
             let department_id;
             document.getElementById('department_select').addEventListener('change', function() {
                 department_id = this.value;
                 console.log('Selected value:', department_id);
+                console.log('Selected Year:', selectedYear);
+                console.log('Selected Month:', selectedMonth);
             });
 
             document.getElementById('searchForm').addEventListener('submit', function(event) {
@@ -133,8 +169,54 @@
                                     var resultItem = document.createElement('a');
                                     resultItem.className = 'block w-full p-1 mb-2 pl-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100';
                                     resultItem.href = '#';
+
+
+                                    // Employee is clicked
                                     resultItem.addEventListener('click', function() {
+                                      const selectedYear = document.getElementById('year_select').value;
+                                      const selectedMonth = document.getElementById('month_select').value;   
+
                                         console.log('Clicked employee:', employee.first_name + ' ' + employee.last_name);
+                                        const employee_id = employee.id;
+
+                                        // Prepare the request payload
+                                        const requestData = {
+                                          employee_id: employee_id,
+                                          selectedYear: selectedYear,
+                                          selectedMonth: selectedMonth,
+                                        };
+
+
+
+                                        // Get the CSRF token value from the meta tag in your HTML layout
+                                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                                        // Include the CSRF token in the request headers
+                                        const headers = {
+                                          'Content-Type': 'application/json',
+                                          'X-CSRF-TOKEN': csrfToken,
+                                        };
+
+
+                                        // Make an AJAX request to the controller method
+                                        fetch('/getAttendances', {
+                                          method: 'POST',
+                                          headers: headers,
+                                          body: JSON.stringify(requestData),
+                                        })
+                                        .then(response => {
+                                          if (!response.ok) {
+                                            throw new Error('Request failed with status: ' + response.status);
+                                          }
+                                          return response.json();
+                                        })
+                                        .then(data => {
+                                          console.log('Attendance data:', data);
+                                          // Process the data as needed
+                                        })
+                                        .catch(error => {
+                                          console.error('Error:', error);
+                                        });
                                     });
 
                                     var h5 = document.createElement('h5');

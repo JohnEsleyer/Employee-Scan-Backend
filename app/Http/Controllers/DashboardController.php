@@ -16,8 +16,5 @@ class DashboardController extends Controller {
         return view('dashboard', compact('employees', 'attendances'));
     }
 
-    public function test()
-    {
-        return view('test');
-    }
+   
 }
