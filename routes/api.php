@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,12 +35,12 @@ Route::get('/hello', function(){
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
     // Employee Endpoints
-    Route::get('/employee', [EmployeeController::class, 'index']);
-    Route::get('/employee/{id}', [EmployeeController::class, 'show']);
-    Route::post('/employee', [EmployeeController::class, 'store']);
-    Route::put('/employee/{id}', [EmployeeController::class, 'update']);
-    Route::delete('/employee/{id}', [EmployeeController::class, 'destroy']);
-    Route::get('/employee/{id}/exists', [EmployeeController::class, 'exists']);
+    // Route::get('/employee', [EmployeeController::class, 'index']);
+    // Route::get('/employee/{id}', [EmployeeController::class, 'show']);
+    // Route::post('/employee', [EmployeeController::class, 'store']);
+    // Route::put('/employee/{id}', [EmployeeController::class, 'update']);
+    // Route::delete('/employee/{id}', [EmployeeController::class, 'destroy']);
+    // Route::get('/employee/{id}/exists', [EmployeeController::class, 'exists']);
 
     // Attendance Endpoints
     Route::post('/attendance', [AttendanceController::class, 'store']);
@@ -49,4 +51,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     // User endpoints
     Route::get('/users', [AuthController::class, 'allUsers']);
+    Route::post('/users/{id}', [UserController::class, 'store']);
+
 });
