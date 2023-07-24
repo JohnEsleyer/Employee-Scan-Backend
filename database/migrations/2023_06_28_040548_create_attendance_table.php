@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
+            $table->integer('user_id');
             $table->integer('office_id');
             $table->datetime('time_in_am');
             $table->datetime('time_out_am');

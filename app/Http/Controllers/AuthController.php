@@ -23,6 +23,7 @@ class AuthController extends Controller
             'last_name' => 'required',
             'username' => 'required|unique:users',
             'password' => 'required|min:6',
+            'department_id' => 'required',
         ]);
 
         $user = User::create([
@@ -30,6 +31,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'username' => $request->username,
             'password' => bcrypt($request->password),
+            'department_id' => $request->department_id,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

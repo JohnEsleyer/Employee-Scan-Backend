@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex flex-row">
+<div class="flex flex-row h-screen bg-gray-200">
   <!-- Navigation Bar -->
   <div id="navbar" class="w-1/3 dark:bg-gray-800 text-white shadow-lg">
     <!-- Your content here -->
@@ -21,9 +21,10 @@
   </script>
 
   <!-- Main Content -->
-  <div class="bg-gray-200 w-full">
-    <div class="flex flex-col justify-center items-center h-screen w-full">
-      <div class="flex flex-row w-3/4 pr-4">
+  <div class="bg-gray-200 w-full h-screen">
+    <div class="flex flex-col justify-center items-center  h-screen ">
+      
+      <div class="flex flex-row w-full pr-4 mt-15">
         <!-- Selector --> 
         <div class="container bg-white rounded-lg m-4 shadow-lg p-6 w-1/4">
           <h1 class="font-bold">Employee's DTR</h1>
@@ -34,7 +35,7 @@
           <select id="department_select" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
             <option value="" disabled selected class="text-gray-500">Select Department</option>
             @foreach ($departments as $department)
-              <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+              <option value="{{ $department->id }}">{{ $department->name}}</option>
             @endforeach
           </select>
           
@@ -85,14 +86,39 @@
         <div id="results"></div>
         </div>
       </div>
-      <div id="dtr" class="container bg-white rounded-lg m-6 shadow-lg w-3/4 p-6">
-        <h1>Hello World</h1>
+      <div id="dtr" class="container bg-white rounded-lg m-10 shadow-lg w-2/3 p-2 ">
+        <h1>The DTR will be displayed here when you select an employee.</h1>
       </div>
     </div>
   </div>
 </div>
 
           <script>
+
+            // Function to convert 24-hour format time to 12-hour format.
+            function convertTo12HourFormat(timeString) {
+              const date = new Date(timeString);
+              const hours = date.getHours();
+              const minutes = date.getMinutes();
+              const ampm = hours >= 12 ? 'PM' : 'AM';
+              const formattedHours = (hours % 12 === 0) ? 12 : hours % 12;
+              return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+            }
+
+            // Function to extract the day from the time format
+            function extractDayFromDate(timeString){
+              const date = new Date(timeString);
+              const day = date.getDate();
+              return day;
+            }
+            // Function to extract the month in text format from the time format
+            function extractMonthFromDate(timeString) {
+              const date = new Date(timeString);
+              const month = date.toLocaleString('default', { month: 'long' });
+              return month;
+            }
+
+
             // Get the selected year and month from the HTML select elements
             const selectedYear = document.getElementById('year_select').value;
             const selectedMonth = document.getElementById('month_select').value;
@@ -222,17 +248,24 @@
 
                                           // Loop through each object in the data array
                                           
-                                          const name = `<h1 class="text-xl font-bold p-4">${employee.last_name}, ${employee.first_name}</h1>`;
+
+                                          var month;
                                           data.forEach(dtrData => {
                                             // Extract the relevant fields from the current data object
-                                            const timeInAM = dtrData.time_in_am;
-                                            const timeOutAM = dtrData.time_out_am;
-                                            const timeInPM = dtrData.time_in_pm;
-                                            const timeOutPM = dtrData.time_out_pm;
-
+                                            const timeInAM = convertTo12HourFormat(dtrData.time_in_am);
+                                            const timeOutAM = convertTo12HourFormat(dtrData.time_out_am);
+                                            const timeInPM = convertTo12HourFormat(dtrData.time_in_pm);
+                                            const timeOutPM = convertTo12HourFormat(dtrData.time_out_pm);
+                                            
+                                            const day = extractDayFromDate(dtrData.time_in_am);
+                                            month = `<div> 
+                                            <h1 class="text-xl font-bold p-4">DTR for the Month of ${extractMonthFromDate(dtrData.time_in_am)}</h1>
+                                            <p>Employee: ${employee.last_name}, ${employee.first_name}</p>
+                                            </div>`;
                                             // Add a table row with the extracted DTR data to the tableRows string
                                             tableRows += `
                                               <tr>
+                                                <td class="border border-gray-300 px-4 py-2">${day}</td>
                                                 <td class="border border-gray-300 px-4 py-2">${timeInAM}</td>
                                                 <td class="border border-gray-300 px-4 py-2">${timeOutAM}</td>
                                                 <td class="border border-gray-300 px-4 py-2">${timeInPM}</td>
@@ -244,22 +277,29 @@
                                           // Update the view with the complete table containing all the DTR data
                                           
                                           dtrDiv.innerHTML = `
-                                            <div class="max-w-md mx-auto mt-4">
-                                              <table class="w-full border-collapse border border-gray-300">
-                                                <thead>
-                                                  <tr>
-                                                    <th class="border border-gray-300 px-4 py-2">Time In (AM)</th>
-                                                    <th class="border border-gray-300 px-4 py-2">Time Out (AM)</th>
-                                                    <th class="border border-gray-300 px-4 py-2">Time In (PM)</th>
-                                                    <th class="border border-gray-300 px-4 py-2">Time Out (PM)</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  ${name}
-                                                  ${tableRows} <!-- Insert the generated table rows here -->
-                                                </tbody>
-                                              </table>
-                                            </div>
+                                          <div class="max-w-md mx-auto mt-4">
+                                            ${month}
+
+                                            <table class="w-full border-collapse border border-gray-300">
+                                              <thead>
+                                                <tr>
+                                                  <th class="border border-gray-300 px-4 py-2"></th>
+                                                  <th colspan="2" class="border border-gray-300 px-4 py-2">AM</th>
+                                                  <th colspan="2" class="border border-gray-300 px-4 py-2">PM</th>
+                                                </tr>
+                                                <tr>
+                                                  <th class="border border-gray-300 px-4 py-2">Day</th>
+                                                 <th class="border border-gray-300 px-4 py-2"> Time In</th>
+                                                 <th class="border border-gray-300 px-4 py-2"> Time Out </th>
+                                                 <th class="border border-gray-300 px-4 py-2"> Time In </th>
+                                                 <th class="border border-gray-300 px-4 py-2"> Time Out </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                ${tableRows} <!-- Insert the generated table rows here -->
+                                              </tbody>
+                                            </table>
+                                          </div>
                                           `;
                                         } else {
                                           // If no data is present in the response, display an error message or handle as needed.

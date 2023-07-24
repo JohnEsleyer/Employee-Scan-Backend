@@ -9,7 +9,7 @@ class Attendance extends Model
 {
     protected $table = 'attendance';
     protected $fillable = [
-        'employee_id',
+        'user_id',
         'office_id',
         'time_in_am',
         'time_out_am',

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Employee;
 use App\Models\Department;
+use App\Models\User;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -13,22 +14,22 @@ use Illuminate\Support\Facades\DB;
 class DTRController extends Controller {
     public function index()
     {
-        $employees = Employee::all();
+        $users = User::all();
         $departments = Department::all();
 
-        return view('dtr', compact('employees', 'departments'));
+        return view('dtr', compact('users', 'departments'));
     }
 
-    // Search Employee
+    // Search User
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
 
-        $employees = Employee::where('first_name', 'like', '%' . $keyword . '%')
+        $users = User::where('first_name', 'like', '%' . $keyword . '%')
             ->orWhere('last_name', 'like', '%' . $keyword . '%')
             ->get();
 
-        return response()->json($employees);
+        return response()->json($users);
     }
 
     public function getAttendances(Request $request)
@@ -76,21 +77,18 @@ class DTRController extends Controller {
         return response()->json($attendances);
     }
 
-
-
-
     public function searchByDepartment(Request $request)
     {
         $keyword = $request->input('keyword');
         $departmentId = $request->input('department_id');
 
-        $employees = Employee::where(function ($query) use ($keyword) {
+        $users = User::where(function ($query) use ($keyword) {
             $query->where('first_name', 'like', '%' . $keyword . '%')
                 ->orWhere('last_name', 'like', '%' . $keyword . '%');
         })->where('department_id', $departmentId)
         ->get();
 
-        return response()->json($employees);
+        return response()->json($users);
     }
 
 }
