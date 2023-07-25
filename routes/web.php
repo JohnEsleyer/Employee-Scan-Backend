@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DTRController;
+use App\Http\Controllers\OfficeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/getAttendances', [DTRController::class, 'getAttendances']);
     Route::post('/search-user', [DTRController::class, 'searchByDepartment'])->name('dtr.search');
     Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/offices', [OfficeController::class, 'index']);
     Route::get('/dtr', [DTRController::class, 'index']);
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroyAttendanceView'])->name('attendances.destroy');
     Route::get('/add_user', [UserController::class, 'index'])->name('users');

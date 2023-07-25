@@ -110,7 +110,7 @@
                 </div>
                 <!-- Select Department --> 
                 <div class="mb-4">
-                    <label for="department_select" class="sr-only">Select Department</label>
+                    <label for="department_select" class="sr-only text-gray-700 text-sm font-bold">Select Department</label>
                     <select id="department_select" name="department_id" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
                         <option value="" disabled selected class="text-gray-500">Select Department</option>
                         @foreach ($departments as $department)
@@ -120,7 +120,7 @@
                 </div>
                 <!-- Select User Types -->
                 <div class="mb-4">
-                    <label for="user_type_select" class="sr-only">Select User Role</label>
+                    <label for="user_type_select" class="sr-only text-gray-700 text-sm font-bold mb-2">Select User Role</label>
                     <select id="user_type_select" name="user_type_id" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
                         <option value="" disabled selected class="text-gray-500">Select Role</option>
                         @foreach ($user_types as $user_type)
