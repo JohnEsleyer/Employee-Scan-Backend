@@ -12,7 +12,7 @@
       var element = document.getElementById('navbar');
       var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
       
-      if (screenWidth < 640) { // Adjust the breakpoint as needed
+      if (screenWidth < 600) { // Adjust the breakpoint as needed
         element.classList.add('hidden');
       } else {
         element.classList.remove('hidden');
@@ -21,8 +21,8 @@
   </script>
 
   <!-- Main Content -->
-  <div class="bg-gray-200 w-full h-screen">
-    <div class="m-20">
+  <div class="bg-gray-200 w-full p-4  h-screen overflow-y-auto">
+    <div class="mr-6">
       <div id="dtr" class="container bg-white rounded-lg m-5 shadow-lg w-full p-5 ">
       <h1 class="text-xl font-bold p-4">Offices</h1>
       <!-- Offices -->
@@ -62,9 +62,12 @@
                 </table>
             </div>
             <!-- End of Offices -->
-            <div>
+
+            <hr class="solid">
+            <!-- Create Office --> 
+            <div class="pt-6">
             <h1 class="text-3xl font-bold mb-6">Create Office</h1>
-            <form id="createOfficeForm" class="max-w-sm">
+            <form id="createOfficeForm" class="">
                 @csrf <!-- Add Laravel CSRF token for form submission -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name:</label>
@@ -114,6 +117,7 @@
                                 // Handle the success response (you can customize this part)
                                 if (response.success) {
                                     alert('Office created successfully!');
+                                    location.reload();
                                     // Optionally, redirect to a success page or update the UI
                                 } else {
                                     alert('Failed to create office. Please try again later.');
