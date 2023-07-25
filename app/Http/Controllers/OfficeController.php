@@ -18,20 +18,20 @@ class OfficeController extends Controller
 
     public function createOffice(Request $request)
     {
-        // Validate incoming request data
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|string|max:255',
-        //     'department_id' => 'required',
-        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'department_id' => 'required',
+        ]);
     
-        // // If validation fails, return JSON response with errors
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Validation failed',
-        //         'errors' => $validator->errors(),
-        //     ], 422);
-        // }
+        // If validation fails, return JSON response with errors
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
     
         // Validation passed, create a new Office record
         $office = Office::create([
