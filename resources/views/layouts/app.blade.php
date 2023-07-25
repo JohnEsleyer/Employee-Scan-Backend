@@ -7,7 +7,7 @@
     <!-- Include your CSS stylesheets and JavaScript files here -->
     <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite('resources/css/app.css')
 </head>
 <body>

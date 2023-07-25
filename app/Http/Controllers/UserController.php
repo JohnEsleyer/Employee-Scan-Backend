@@ -35,5 +35,7 @@ class UserController extends Controller {
         $user = User::create($validatedData);
         return response()->json($user, 201);
     }
+
+    
 }
 ?>

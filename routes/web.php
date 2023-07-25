@@ -8,6 +8,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DTRController;
 use App\Http\Controllers\OfficeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +43,7 @@ Route::post('/logout', [AuthController::class, 'logoutWeb'])->name('logout');
 
 // Pages
 Route::middleware(['auth'])->group(function () {
+    Route::post('/office', [OfficeController::class, 'createOffice']);
     Route::post('/getAttendances', [DTRController::class, 'getAttendances']);
     Route::post('/search-user', [DTRController::class, 'searchByDepartment'])->name('dtr.search');
     Route::get('/dashboard', [DashboardController::class, 'index']);

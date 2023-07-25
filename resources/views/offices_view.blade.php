@@ -62,14 +62,82 @@
                 </table>
             </div>
             <!-- End of Offices -->
+            <div>
+            <h1 class="text-3xl font-bold mb-6">Create Office</h1>
+            <form id="createOfficeForm" class="max-w-sm">
+                @csrf <!-- Add Laravel CSRF token for form submission -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name:</label>
+                    <input type="text" id="name" name="name" required class="w-full px-3 py-2 border rounded-md">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="department">Department:</label>
+                    <select id="department" name="department_id" required class="w-full px-3 py-2 border rounded-md">
+                        <option value="">Select Department</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                    Submit
+                </button>
+            </form>
+
+            <!-- "Please wait" message -->
+            <div class="loading text-center text-lg mt-4" id="loadingMsg" style="display: none;">
+                Please wait while waiting for the response...
+            </div>
+
+            <script>
+                $(document).ready(function() {
+                    // Hide the "please wait" message by default
+                    $('#loadingMsg').hide();
+
+                    // Handle form submission using Ajax
+                    $('#createOfficeForm').submit(function(event) {
+                        event.preventDefault();
+
+                        // Show the "please wait" message
+                        $('#loadingMsg').show();
+
+                        // Send the Ajax request
+                        $.ajax({
+                            url: '/office', // Replace this with the correct URL of your route
+                            type: 'POST',
+                            data: $(this).serialize(),
+                            dataType: 'json',
+                            success: function(response) {
+                                // Hide the "please wait" message
+                                $('#loadingMsg').hide();
+
+                                // Handle the success response (you can customize this part)
+                                if (response.success) {
+                                    alert('Office created successfully!');
+                                    // Optionally, redirect to a success page or update the UI
+                                } else {
+                                    alert('Failed to create office. Please try again later.');
+                                    // Optionally, display specific error messages
+                                }
+                            },
+                            error: function() {
+                                // Hide the "please wait" message
+                                $('#loadingMsg').hide();
+
+                                // Handle the error response (you can customize this part)
+                                alert('An error occurred while processing your request. Please try again later.');
+                            }
+                        });
+                    });
+                });
+            </script>
+            </div>
       </div>
       <div>
     </div>
 
-          <script>
-
-          
-        </script>
+  
+  
 
 </div>
     

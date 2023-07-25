@@ -8,9 +8,6 @@ class Office extends Model
 {
     protected $table = 'office';
     protected $fillable = ['name', 'department_id'];
+    public $timestamps = false;
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
 }
