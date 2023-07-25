@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
+use App\Models\UserType;
 
 class UserController extends Controller {
     public function index()
     {
         $users = User::all();
+        $departments = Department::all();
+        $user_types = UserType::all();
 
-        return view('add_user', compact('users'));
+        return view('add_user', compact('users','departments', 'user_types'));
     }
     public function show($id)
     {

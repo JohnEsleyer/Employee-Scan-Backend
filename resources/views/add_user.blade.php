@@ -108,12 +108,33 @@
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="Password">
                 </div>
+                <!-- Select Department --> 
+                <div class="mb-4">
+                    <label for="department_select" class="sr-only">Select Department</label>
+                    <select id="department_select" name="department_id" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
+                        <option value="" disabled selected class="text-gray-500">Select Department</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <!-- Select User Types -->
+                <div class="mb-4">
+                    <label for="user_type_select" class="sr-only">Select User Role</label>
+                    <select id="user_type_select" name="user_type_id" class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-200 appearance-none">
+                        <option value="" disabled selected class="text-gray-500">Select Role</option>
+                        @foreach ($user_types as $user_type)
+                            <option value="{{ $user_type->id }}">{{ $user_type->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="mb-4">
                     <button id="create-user-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Create
                     </button>
                 </div>
             </form>
+
             <div id="error-message" class="text-red-500"></div> <!-- Element to display the error message -->
         </div>
 

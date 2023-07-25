@@ -163,6 +163,7 @@
 
             document.getElementById('searchForm').addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent form submission
+                department_id = document.getElementById('department_select').value;
 
                 var keyword = document.getElementById('keyword').value;
 
