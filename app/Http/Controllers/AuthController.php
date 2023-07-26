@@ -79,7 +79,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)){
             // Authentication successful
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dtr');
         }else{
             // Authentication failed
             return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
