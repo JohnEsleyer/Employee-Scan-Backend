@@ -34,7 +34,7 @@ class DTRController extends Controller {
 
     public function getAttendances(Request $request)
     {
-        $employeeId = $request->input('employee_id');
+        $employeeId = $request->input('user_id');
         $selectedYear = $request->input('selectedYear');
         $selectedMonth = $request->input('selectedMonth');
     
@@ -56,7 +56,7 @@ class DTRController extends Controller {
             'formattedDate' => $formattedDate,
         ]);
     
-        $attendances = Attendance::where('employee_id', $employeeId)
+        $attendances = Attendance::where('user_id', $employeeId)
             ->where(function ($query) use ($selectedYear, $selectedMonth) {
                 $query->where(DB::raw('YEAR(time_in_am)'), $selectedYear)
                     ->where(DB::raw('MONTH(time_in_am)'), $selectedMonth)

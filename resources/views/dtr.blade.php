@@ -208,7 +208,7 @@
 
                                       // Prepare the request payload
                                       const requestData = {
-                                        employee_id: employee_id,
+                                        user_id: employee_id,
                                         selectedYear: selectedYear,
                                         selectedMonth: selectedMonth,
                                       };
